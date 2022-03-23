@@ -13,7 +13,7 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    image = models.ImageField(upload_to='./media/')
+    image = models.ImageField(upload_to='')
     place = models.ForeignKey('Place',
                              related_name='image',
                              on_delete=models.CASCADE,
