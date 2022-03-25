@@ -1,9 +1,24 @@
 import os
 
 from functools import reduce
-from django.shortcuts import render
+
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, get_object_or_404
 
 from places.models import Place
+
+
+def get_place_details(place):
+    return {
+        "title": place.title,
+        "imgs": [img.image.url for img in place.image.all()],
+        "description_short": place.description_short,
+        "description_long": place.description_long,
+        "coordinates": {
+            "lng": place.coordinates_lng,
+            "lat": place.coordinates_lat
+        }
+    }
 
 
 def render_main_page(request):
@@ -31,3 +46,8 @@ def render_main_page(request):
 
     context = {"places_details": places_details}
     return render(request, 'index.html', context)
+
+def render_place(request, place_id):
+    place = get_object_or_404(Place, pk=place_id)
+
+    return JsonResponse(get_place_details(place))
