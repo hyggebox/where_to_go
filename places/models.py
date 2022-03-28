@@ -18,6 +18,7 @@ class Image(models.Model):
                              related_name='image',
                              on_delete=models.CASCADE,
                              null=True)
+    position = models.SmallIntegerField(null=True, blank=True)
 
     def __str__(self):
         return f'Картинка id {self.id}'

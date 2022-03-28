@@ -7,7 +7,7 @@ from places.models import Place, Image
 class ImageInline(admin.TabularInline):
     model = Image
     extra = 1
-    ordering = ('id',)
+    ordering = ('position',)
 
 
 @admin.register(Image)
