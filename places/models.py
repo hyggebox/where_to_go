@@ -38,6 +38,7 @@ class Image(models.Model):
     class Meta:
         verbose_name = 'Картинка'
         verbose_name_plural = 'Картинки'
+        ordering = ['position']
 
     def __str__(self):
         return f'Картинка id {self.id}'
