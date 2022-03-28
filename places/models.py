@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import format_html
 
 
 class Place(models.Model):
@@ -26,6 +27,12 @@ class Image(models.Model):
                               on_delete=models.CASCADE,
                               null=True)
     position = models.SmallIntegerField('Позиция', null=True, blank=True)
+
+    def get_preview(self):
+        return format_html('<img src="{url}" height={height}>'.format(
+            url=self.image.url,
+            height=200
+        ))
 
     class Meta:
         verbose_name = 'Картинка'

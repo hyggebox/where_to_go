@@ -1,18 +1,27 @@
 from django.contrib import admin
+from django.utils.html import format_html
 
 from places.models import Place, Image
-
 
 
 class ImageInline(admin.TabularInline):
     model = Image
     extra = 1
     ordering = ('position',)
+    fields = ('image', 'get_preview', 'position')
+    readonly_fields = ['get_preview']
 
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'place')
+    list_display = ('__str__', 'place', 'get_preview')
+    readonly_fields = ['get_preview']
+
+    # def get_preview(self, obj):
+    #     return format_html('<img src="{url}" height={height}>'.format(
+    #         url=obj.image.url,
+    #         height=200
+    #     ))
 
 
 @admin.register(Place)
