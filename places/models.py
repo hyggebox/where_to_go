@@ -26,7 +26,8 @@ class Image(models.Model):
                               related_name='image',
                               on_delete=models.CASCADE,
                               null=True)
-    position = models.SmallIntegerField('Позиция', null=True, blank=True)
+    position = models.PositiveIntegerField('Позиция', default=0,
+                                           null=True, blank=True)
 
     def get_preview(self):
         return format_html('<img src="{url}" height={height}>'.format(
