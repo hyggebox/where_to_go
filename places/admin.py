@@ -11,11 +11,21 @@ class ImageInline(admin.TabularInline):
     fields = ('image', 'get_preview', 'position')
     readonly_fields = ['get_preview']
 
+    def get_preview(self, obj):
+        return obj.get_preview()
+
+    get_preview.short_description = 'Превью'
+
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'place', 'get_preview')
     readonly_fields = ['get_preview']
+
+    def get_preview(self, obj):
+        return obj.get_preview()
+
+    get_preview.short_description = 'Превью'
 
 
 @admin.register(Place)
