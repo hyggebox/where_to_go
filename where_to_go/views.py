@@ -1,9 +1,6 @@
-import os
-
-from functools import reduce
-
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
 from places.models import Place
 
@@ -37,9 +34,8 @@ def render_main_page(request):
             "properties": {
                 "title": place.title,
                 "placeId": place.pk,
-                "detailsUrl": reduce(
-                    os.path.join,
-                    ['static', 'places', place.feature_filename])
+                "detailsUrl": reverse('place-details',
+                                      kwargs={'place_id':place.pk}),
                 }
             }
         places_details['features'].append(feature)
