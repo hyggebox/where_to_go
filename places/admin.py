@@ -17,12 +17,6 @@ class ImageAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'place', 'get_preview')
     readonly_fields = ['get_preview']
 
-    # def get_preview(self, obj):
-    #     return format_html('<img src="{url}" height={height}>'.format(
-    #         url=obj.image.url,
-    #         height=200
-    #     ))
-
 
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
