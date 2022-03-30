@@ -87,14 +87,11 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = env.str('STATIC_URL', '/static/')
-
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
-
-MEDIA_ROOT = env.str('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
-
-STATIC_ROOT = env.str('STATIC_ROOT', '/static/')
+STATIC_URL = env.str('STATIC_URL', '/static/')
+STATIC_ROOT = env.str('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 
 MEDIA_URL = env.str('MEDIA_URL', '/media/')
+MEDIA_ROOT = env.str('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
