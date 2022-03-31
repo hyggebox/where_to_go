@@ -26,7 +26,4 @@ urlpatterns = [
     path('', views.render_main_page),
     path('place/<int:place_id>', views.render_place, name='place-details'),
     path('tinymce/', include('tinymce.urls')),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
