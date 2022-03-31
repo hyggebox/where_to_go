@@ -30,6 +30,8 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+## Демо-версия сайта
+Демо-версия сайта доступна по ссылке [hyggebox.pythonanywhere.com](http://hyggebox.pythonanywhere.com/)
 
 ## Цели проекта
 Код написан в учебных целях.
