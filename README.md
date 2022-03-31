@@ -30,6 +30,13 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+## Панель администратора
+Панель администратора сайта доступна по адресу `sitename/admin/`. Для
+создания учетной записи администратора используйте команду
+```commandline
+python manage.py createsuperuser
+```
+
 ## Демо-версия сайта
 Демо-версия сайта доступна по ссылке [hyggebox.pythonanywhere.com](http://hyggebox.pythonanywhere.com/)
 
