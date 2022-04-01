@@ -5,7 +5,7 @@
 
 ## Переменные окружения
 Определите переменные окружения в файле `.env` в формате: `ПЕРЕМЕННАЯ=значение`:
-- `DEBUG` — дебаг-режим. Поставьте `True` для включения, `False` -- для 
+- `DEBUG` — дебаг-режим. Поставьте `True` для включения, `False` — для 
 выключения отладочного режима. По умолчанию дебаг-режим отключен.
 - `SECRET_KEY` — секретный ключ проекта, например: `fwei3$@K!fjslfji;erfkdsewyiwero`
 - `ALLOWED_HOSTS` — список разрешенных хостов.
@@ -35,7 +35,7 @@ python manage.py runserver
 ```commandline
 python manage.py load_place
 ```
-Тестовые данные взяты из репозитория [devmanorg/where-to-go-places](https://github.com/devmanorg/where-to-go-places)
+Тестовые данные загружаются из репозитория [devmanorg/where-to-go-places](https://github.com/devmanorg/where-to-go-places)
 
 ### Панель администратора
 Панель администратора сайта доступна по адресу `sitename/admin/`. Для
