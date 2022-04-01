@@ -30,9 +30,16 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-## Панель администратора
+### Наполнение базы данных
+Чтобы заполнить базу данных тестовой информацией, запустите скрипт командой:
+```commandline
+python manage.py load_place
+```
+Тестовые данные взяты из репозитория [devmanorg/where-to-go-places](https://github.com/devmanorg/where-to-go-places)
+
+### Панель администратора
 Панель администратора сайта доступна по адресу `sitename/admin/`. Для
-создания учетной записи администратора используйте команду
+создания учетной записи администратора используйте команду:
 ```commandline
 python manage.py createsuperuser
 ```
