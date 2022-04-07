@@ -43,7 +43,9 @@ def render_main_page(request):
     context = {"places_details": places_details}
     return render(request, 'index.html', context)
 
+
 def render_place(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
-
-    return JsonResponse(get_place_details(place))
+    return JsonResponse(get_place_details(place),
+                        safe=False,
+                        json_dumps_params={'ensure_ascii': False, 'indent': 2})
