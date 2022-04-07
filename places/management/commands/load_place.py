@@ -57,8 +57,6 @@ def save_images(place, img_urls):
             )
             image.place = place
             image.save()
-        else:
-            continue
 
 
 class Command(BaseCommand):
