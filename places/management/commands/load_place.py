@@ -61,16 +61,12 @@ def save_images(place, img_urls):
             continue
 
 
-def main():
-    places_titles = get_titles()
-    for title in places_titles:
-        place_data = get_contents(title)
-        place = save_place(place_data)
-        place_images_urls = place_data['imgs']
-        save_images(place, place_images_urls)
-
-
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        main()
+        places_titles = get_titles()
+        for title in places_titles:
+            place_data = get_contents(title)
+            place = save_place(place_data)
+            place_images_urls = place_data['imgs']
+            save_images(place, place_images_urls)
