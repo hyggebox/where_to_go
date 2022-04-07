@@ -1,9 +1,8 @@
 import os
-import requests
-
-from bs4 import BeautifulSoup
 from urllib.parse import quote, urlparse
 
+import requests
+from bs4 import BeautifulSoup
 from django.core.management import BaseCommand
 from django.core.files.base import ContentFile
 
