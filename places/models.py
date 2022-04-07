@@ -30,10 +30,7 @@ class Image(models.Model):
                                            null=True, blank=True)
 
     def get_preview(self):
-        return format_html('<img src="{url}" height={height}>'.format(
-            url=self.image.url,
-            height=200
-        ))
+        return format_html('<img src="{}" height={}>', self.image.url, 200)
 
     class Meta:
         verbose_name = 'Картинка'
