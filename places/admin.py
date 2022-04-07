@@ -21,6 +21,7 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
 class ImageAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'place', 'get_preview')
     readonly_fields = ['get_preview']
+    raw_id_fields = ('place',)
 
     def get_preview(self, obj):
         return obj.get_preview()
