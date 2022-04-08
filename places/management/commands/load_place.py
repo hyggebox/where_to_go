@@ -45,18 +45,19 @@ def save_images(place, img_urls):
         img_name_without_ext, ext = os.path.splitext(image_name)
         uploaded_images_names = [str(image.image) for image in place.image.all()]
 
-        if not any(img_name_without_ext in name for name in uploaded_images_names):
-            response = requests.get(image_url)
-            response.raise_for_status()
+        if any(img_name_without_ext in name for name in uploaded_images_names):
+            continue
+        response = requests.get(image_url)
+        response.raise_for_status()
 
-            image = Image()
-            image.image.save(
-                image_name,
-                ContentFile(response.content),
-                save=False
-            )
-            image.place = place
-            image.save()
+        image = Image()
+        image.image.save(
+            image_name,
+            ContentFile(response.content),
+            save=False
+        )
+        image.place = place
+        image.save()
 
 
 class Command(BaseCommand):
