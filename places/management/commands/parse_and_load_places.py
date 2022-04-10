@@ -43,7 +43,7 @@ def save_images(place, img_urls):
     for image_url in img_urls:
         image_name = os.path.basename(urlparse(image_url).path)
         img_name_without_ext, ext = os.path.splitext(image_name)
-        uploaded_images_names = [str(image.image) for image in place.image.all()]
+        uploaded_images_names = [str(image.image) for image in place.images.all()]
 
         if any(img_name_without_ext in name for name in uploaded_images_names):
             continue
