@@ -15,6 +15,11 @@ DEBUG = env.bool('DEBUG', False)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', ['127.0.0.1', 'hyggebox.pythonanywhere.com'])
 
+SECURE_HSTS_SECONDS = env.int('SECURE_HSTS_SECONDS', 0)
+SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', not DEBUG)
+SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE', not DEBUG)
+CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', not DEBUG)
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
