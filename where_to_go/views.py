@@ -8,7 +8,7 @@ from places.models import Place
 def get_place_details(place):
     return {
         "title": place.title,
-        "imgs": [img.image.url for img in place.image.all()],
+        "imgs": [img.image.url for img in place.images.all()],
         "description_short": place.description_short,
         "description_long": place.description_long,
         "coordinates": {
@@ -35,7 +35,7 @@ def render_main_page(request):
                 "title": place.title,
                 "placeId": place.pk,
                 "detailsUrl": reverse('place-details',
-                                      kwargs={'place_id':place.pk}),
+                                      kwargs={'place_id': place.pk}),
                 }
             }
         places_details['features'].append(feature)
