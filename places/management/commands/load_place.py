@@ -1,28 +1,13 @@
+import json
 import os
 from urllib.parse import quote, urlparse
 
 import requests
-from bs4 import BeautifulSoup
+import validators
 from django.core.management import BaseCommand
 from django.core.files.base import ContentFile
 
 from places.models import Image, Place
-
-
-def get_titles():
-    repo_url = 'https://github.com/devmanorg/where-to-go-places/tree/master/places'
-    response = requests.get(repo_url)
-    response.raise_for_status()
-    repo_soup = BeautifulSoup(response.text, 'html.parser')
-    raw_titles = repo_soup.select('.js-navigation-item a.Link--primary')
-    return [title.text for title in raw_titles]
-
-
-def get_contents(title):
-    base_url = 'https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/places/'
-    response = requests.get(f'{base_url}{quote(title)}')
-    response.raise_for_status()
-    return response.json()
 
 
 def save_place(place_data):
@@ -43,7 +28,7 @@ def save_images(place, img_urls):
     for image_url in img_urls:
         image_name = os.path.basename(urlparse(image_url).path)
         img_name_without_ext, ext = os.path.splitext(image_name)
-        uploaded_images_names = [str(image.image) for image in place.image.all()]
+        uploaded_images_names = [str(image.image) for image in place.images.all()]
 
         if any(img_name_without_ext in name for name in uploaded_images_names):
             continue
@@ -60,12 +45,49 @@ def save_images(place, img_urls):
         image.save()
 
 
+def is_file_path(string):
+    if os.path.isfile(string):
+        return string
+    raise ValueError()
+
+
+def is_url(string):
+    if validators.url(string):
+        return string
+    raise ValueError()
+
+
 class Command(BaseCommand):
+    help = 'load place details from .json file to DB'
+
+    def add_arguments(self, parser):
+        parser.add_argument('-p', '--local_path',
+                            type=is_file_path,
+                            help='Local path to a .json file with place details')
+        parser.add_argument('-u', '--url',
+                            type=is_url,
+                            help='Url to a .json file with place details')
 
     def handle(self, *args, **options):
-        places_titles = get_titles()
-        for title in places_titles:
-            place_data = get_contents(title)
+        local_path = options['local_path']
+        url_to_place_data = options['url']
+
+        if local_path:
+            with open(local_path, encoding='utf8') as file:
+                place_data = json.load(file)
+
+        if url_to_place_data:
+            response = requests.get(url_to_place_data)
+            response.raise_for_status()
+            try:
+                place_data = response.json()
+            except Exception:
+                raise ValueError('Incorrect url')
+
+        try:
             place = save_place(place_data)
+        except Exception as error:
+            print(error)
+        else:
             place_images_urls = place_data['imgs']
             save_images(place, place_images_urls)
