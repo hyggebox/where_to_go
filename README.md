@@ -3,7 +3,9 @@
 
 Сайт о самых интересных местах столицы.
 
+
 ## Переменные окружения
+
 Определите переменные окружения в файле `.env` в формате: `ПЕРЕМЕННАЯ=значение`:
 - `DEBUG` — дебаг-режим. Поставьте `True` для включения, `False` — для 
 выключения отладочного режима. По умолчанию дебаг-режим отключен.
@@ -12,8 +14,14 @@
 - `STATIC_URL` — отображаемый каталог со статичными файлами, по умолчанию `'/static/'`. 
 - `MEDIA_ROOT` — каталог для хранения медиа-файлов, по умолчанию `'media'`.
 - `MEDIA_URL` — отображаемый каталог с медиа-файлами, по умолчанию `'/media/'`
+- `SECURE_HSTS_SECONDS` — по умолчанию противоположно значению `DEBUG`
+- `SECURE_SSL_REDIRECT` — по умолчанию противоположно значению `DEBUG`
+- `SESSION_COOKIE_SECURE` — по умолчанию противоположно значению `DEBUG`
+- `CSRF_COOKIE_SECURE` — по умолчанию противоположно значению `DEBUG`
+
 
 ## Установка и запуск на локальном сервере
+
 - Скачайте код из репозитория
 - Установите зависимости командой:
 ```shell
@@ -30,7 +38,9 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+
 ### Наполнение базы данных
+
 Для заполнения базы данных тестовой информацией используется команда `load_place`.
 
 Аргументом скрипту передаётся путь к локальному .json файлу (`-p`/`--local_path`) 
@@ -58,19 +68,25 @@ python manage.py load_place -u "https://raw.githubusercontent.com/devmanorg/wher
 python manage.py load_place -p places/place_details.json
 ```
 
+
 ### Панель администратора
+
 Панель администратора сайта доступна по адресу `sitename/admin/`. Для
 создания учетной записи администратора используйте команду:
 ```commandline
 python manage.py createsuperuser
 ```
 
+
 ## Демо-версия сайта
+
 Демо-версия сайта доступна по ссылке [hyggebox.pythonanywhere.com](http://hyggebox.pythonanywhere.com/)
 Данные взяты из репозитория [devmanorg/where-to-go-places](https://github.com/devmanorg/where-to-go-places)
 
 
+
 ## Цели проекта
+
 Код написан в учебных целях.
 
 Тестовые данные взяты с сайта [KudaGo](https://kudago.com/).
