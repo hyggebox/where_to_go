@@ -85,9 +85,9 @@ class Command(BaseCommand):
                 raise ValueError('Incorrect url')
 
         try:
-            place = save_place(place_data)
+            place_instance = save_place(place_data)
         except Exception as error:
             print(error)
         else:
             place_images_urls = place_data['imgs']
-            save_images(place, place_images_urls)
+            save_images(place_instance, place_images_urls)
