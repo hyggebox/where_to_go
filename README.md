@@ -80,7 +80,8 @@ python manage.py createsuperuser
 
 ## Демо-версия сайта
 
-Демо-версия сайта доступна по ссылке [hyggebox.pythonanywhere.com](http://hyggebox.pythonanywhere.com/)
+Демо-версия сайта доступна по ссылке [hyggebox.pythonanywhere.com](https://hyggebox.pythonanywhere.com/)
+
 Данные взяты из репозитория [devmanorg/where-to-go-places](https://github.com/devmanorg/where-to-go-places)
 
 
