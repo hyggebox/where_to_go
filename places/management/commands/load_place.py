@@ -1,11 +1,13 @@
 import json
 import os
+import sys
 from urllib.parse import quote, urlparse
 
 import requests
 import validators
 from django.core.management import BaseCommand
 from django.core.files.base import ContentFile
+from requests import JSONDecodeError
 
 from places.models import Image, Place
 
@@ -20,6 +22,7 @@ def save_place(place_data):
             'coordinates_lat': place_data['coordinates']['lat']
         }
     )
+    print('created =', created)
     return place
 
 
@@ -81,8 +84,8 @@ class Command(BaseCommand):
             response.raise_for_status()
             try:
                 place_data = response.json()
-            except Exception:
-                raise ValueError('Incorrect url')
+            except JSONDecodeError:
+                sys.exit('Invalid data got from the URL')
 
         try:
             place_instance = save_place(place_data)
