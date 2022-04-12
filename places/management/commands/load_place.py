@@ -1,8 +1,10 @@
 import json
 import os
 import sys
-from urllib.parse import quote, urlparse
+from urllib.parse import urlparse
 
+import jsonschema
+from jsonschema.exceptions import ValidationError
 import requests
 import validators
 from django.core.management import BaseCommand
@@ -12,7 +14,33 @@ from requests import JSONDecodeError
 from places.models import Image, Place
 
 
+place_json_schema = {
+    "type": "object",
+    "properties": {
+        "title": {"type": "string"},
+        "imgs": {
+            "type": "array",
+            "items": {
+                    "type": "string"
+                  },
+            },
+        "description_short": {"type": "string"},
+        "description_long": {"type": "string"},
+        "coordinates": {
+            "type": "object",
+            "properties": {
+                "lng": {"type": "string"},
+                "lat": {"type": "string"},
+            },
+            "required": ["lng", "lat"]
+        },
+    },
+    "required": ["title", "coordinates"]
+}
+
+
 def save_place(place_data):
+    jsonschema.validate(place_data, place_json_schema)
     place, created = Place.objects.get_or_create(
         title=place_data['title'],
         defaults={
@@ -22,7 +50,6 @@ def save_place(place_data):
             'coordinates_lat': place_data['coordinates']['lat']
         }
     )
-    print('created =', created)
     return place
 
 
@@ -89,8 +116,8 @@ class Command(BaseCommand):
 
         try:
             place_instance = save_place(place_data)
-        except Exception as error:
-            print(error)
+        except ValidationError as error:
+            print('Incorrect JSON data:', error)
         else:
             place_images_urls = place_data['imgs']
             save_images(place_instance, place_images_urls)
